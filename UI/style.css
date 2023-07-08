@@ -1,0 +1,170 @@
+* {
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+html {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #ddd;
+    color: #000;
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    height: 120px;
+}
+
+h1#title {
+    text-align: center;
+}
+
+footer {
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+}
+
+ul {
+    padding: 0;
+    list-style: none;
+}
+
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    font-size: 1.25em;
+}
+
+main {
+    height: calc(100vh - 120px - 25px - 25px);
+    overflow: auto;
+    border: 1px solid #ccc;
+}
+
+main section {
+    display: none;
+}
+
+main#mode_home section#section_home,
+main#mode_buttons section#section_buttons,
+main#mode_sounds section#section_sounds,
+main#mode_icons section#section_icons,
+main#mode_about section#section_about {
+    display: block;
+}
+
+section.section_item {
+    width: calc(100% - 25px - 25px);
+    height: calc(100% - 25px - 25px);
+    margin: 25px;
+}
+
+section#section_buttons {
+    height: 5000px;
+}
+
+#section_home #home_buttons,
+#section_buttons #buttons_buttons,
+#section_home #home_sounds,
+#section_sounds #sounds_sounds,
+#section_home #home_icons,
+#section_icons #icons_icons {
+    display: flex;
+}
+
+#section_home #home_buttons,
+#section_home #home_sounds,
+#section_home #home_icons {
+    gap: 25px;
+    overflow: auto;
+}
+
+#section_buttons #buttons_buttons,
+#section_sounds #sounds_sounds,
+#section_icons #icons_icons {
+    justify-content: space-between;
+    row-gap: 25px;
+    flex-wrap: wrap;
+}
+
+.button,
+.buttondata {
+    border: 1px solid #777;
+    background: #bbb;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.button {
+    width: 100px;
+    height: 100px;
+}
+
+.buttondata {
+    width: 200px;
+    height: 100px;
+}
+
+.button:hover {
+    background: #999;
+}
+
+.modal {
+	display: none;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(25, 25, 25, 0.75);
+}
+
+.modal.modal_show {
+	display: block;
+}
+
+.modal .modal_box {
+	position: absolute;
+	top: 50px;
+	bottom: 50px;
+	left: 50px;
+	right: 50px;
+	background: #FFF;
+}
+
+.modal_box #modal_title {
+	padding: 20px 15px;
+	margin: 0;
+	text-align: center;
+}
+
+.modal_box #modal_content {
+	padding: 25px;
+}
+
+.modal #modal_content form {
+	display: flex;
+	flex-direction: column;
+	gap: 25px;
+}
+
+.modal #modal_content form .form_field {
+	width: 100%;
+	display: flex;
+	gap: 15px;
+}
+
+.modal #modal_content form .form_field label {
+	flex: 1;
+	text-align: right;
+}
+
+.modal #modal_content form .form_field input,
+.modal #modal_content form .form_field select {
+	flex: 5;
+}
