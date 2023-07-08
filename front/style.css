@@ -50,6 +50,10 @@ main section {
     display: none;
 }
 
+section#section_buttons {
+    height: 5000px;
+}
+
 main#mode_home section#section_home,
 main#mode_buttons section#section_buttons,
 main#mode_sounds section#section_sounds,
@@ -62,10 +66,6 @@ section.section_item {
     width: calc(100% - 25px - 25px);
     height: calc(100% - 25px - 25px);
     margin: 25px;
-}
-
-section#section_buttons {
-    height: 5000px;
 }
 
 #section_home #home_buttons,
@@ -117,11 +117,8 @@ section#section_buttons {
 .modal {
 	display: none;
 	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: rgba(25, 25, 25, 0.75);
+	inset: 0;
+	background: rgba(25 25 25 / 75%);
 }
 
 .modal.modal_show {
@@ -130,10 +127,7 @@ section#section_buttons {
 
 .modal .modal_box {
 	position: absolute;
-	top: 50px;
-	bottom: 50px;
-	left: 50px;
-	right: 50px;
+	inset: 50px;
 	background: #FFF;
 }
 

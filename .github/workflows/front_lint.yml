@@ -32,8 +32,16 @@ jobs:
                 name: Install dependencies
                 run: |
                     npm update
-                    npm i -g html-validate
+                    npm i
             -
                 name: Lint (html-validate)
                 run: |
-                    html-validate $(git ls-files '*.html')
+                    npm run lint:html
+            -
+                name: Lint (stylelint)
+                run: |
+                    npm run lint:css
+            -
+                name: Lint (eslint)
+                run: |
+                    npm run lint:js
