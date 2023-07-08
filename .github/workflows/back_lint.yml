@@ -1,0 +1,39 @@
+name: Back Lint
+
+on:
+    push:
+        branches:
+            - main
+            - dev
+    pull_request:
+        branches:
+            - main
+            - dev
+
+jobs:
+    lint:
+        runs-on: ubuntu-latest
+        strategy:
+            matrix:
+                python-version: ["3.8", "3.9", "3.10"]
+        defaults:
+            run:
+                working-directory: back
+        steps:
+            -
+                name: Checkout
+                uses: actions/checkout@v3
+            -
+                name: Setup Python
+                uses: actions/setup-python@v3
+                with:
+                    python-version: ${{ matrix.python-version }}
+            -
+                name: Install dependencies
+                run: |
+                    python -m pip install --upgrade pip
+                    pip install -r requirements.txt
+            -
+                name: Lint (pylint)
+                run: |
+                    pylint --rcfile .pylintrc $(git ls-files '*.py')
