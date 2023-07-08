@@ -7,7 +7,7 @@
 - Back
 	- [x] Serve static files (Icons / Sounds)
 - Misc
-	- [ ] Setup repo (multiple or single?)
+	- [x] Setup repo
 	- [ ] Setup CI/CD pipeline
 		- [ ] Build front
 		- [ ] Build back

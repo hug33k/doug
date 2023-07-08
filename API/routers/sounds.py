@@ -66,17 +66,18 @@ async def remove_sound(sound_id: int = Query()):
 @router.post("/{sound_id}/upload", response_model=SoundRead)
 async def upload_sound(file: UploadFile, sound_id: int = Query()):
     with get_session() as session:
+        filetype = file.filename.split(".")[-1]
         sound = session.get(Sounds, sound_id)
         print(sound)
         if (not sound):
             raise HTTPException(status_code=404, detail="Sound not found")
         # Changer le nom du fichier par un UUID pour éviter les conflits
         # Et check que l'UUID ne soit pas déjà utilisé
-        async with aiofiles.open("/home/pi/Projects/Doug/API/public/sounds/" + file.filename, "wb") as file_disk:
+        async with aiofiles.open("/home/pi/Projects/Doug/API/public/sounds/{}.{}".format(sound_id, filetype), "wb") as file_disk:
             print(file_disk)
             content = await file.read()
             await file_disk.write(content)
-        setattr(sound, "path", "/public/sounds/" + file.filename)
+        setattr(sound, "path", "/public/sounds/{}.{}".format(sound_id, filetype))
         print("ok?")
         session.add(sound)
         session.commit()

@@ -65,20 +65,17 @@ async def remove_icon(icon_id: int = Query()):
 @router.post("/{icon_id}/upload", response_model=IconRead)
 async def upload_icon(file: UploadFile, icon_id: int = Query()):
     with get_session() as session:
+        filetype = file.filename.split(".")[-1]
         icon = session.get(Icons, icon_id)
-        print(icon)
         if (not icon):
             raise HTTPException(status_code=404, detail="Icon not found")
         # Changer le nom du fichier par un UUID pour éviter les conflits
         # Et check que l'UUID ne soit pas déjà utilisé
-        async with aiofiles.open("/home/pi/Projects/Doug/API/public/icons/" + file.filename, "wb") as file_disk:
-            print(file_disk)
+        async with aiofiles.open("/home/pi/Projects/Doug/API/public/icons/{}.{}".format(icon_id, filetype), "wb") as file_disk:
             content = await file.read()
             await file_disk.write(content)
-        setattr(icon, "path", "/public/icons/" + file.filename)
-        print("ok?")
+        setattr(icon, "path", "/public/icons/{}.{}".format(icon_id, filetype))
         session.add(icon)
         session.commit()
         session.refresh(icon)
-        print("ok")
         return icon
