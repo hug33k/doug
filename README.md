@@ -8,7 +8,7 @@
 	- [x] Serve static files (Icons / Sounds)
 - Misc
 	- [x] Setup repo
-	- [ ] Setup CI/CD pipeline
-		- [ ] Build back
+	- [.] Setup CI/CD pipeline
+		- [x] Lint back
 		- [ ] Test back
-		- [ ] Build front
+		- [x] Lint front
