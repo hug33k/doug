@@ -3,22 +3,22 @@ from sqlmodel import Field, SQLModel
 
 
 class SoundBase(SQLModel):
-    name: str
-    path: str
+	name: str
+	path: str
 
 
 class Sounds(SoundBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+	id: Optional[int] = Field(default=None, primary_key=True)
 
 
 class SoundCreate(SoundBase):
-    pass
+	pass
 
 
 class SoundRead(SoundBase):
-    id: int
+	id: int
 
 
 class SoundUpdate(SQLModel):
-    name: Optional[str] = None
-    path: Optional[str] = None
+	name: Optional[str] = None
+	path: Optional[str] = None

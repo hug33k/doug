@@ -3,22 +3,22 @@ from sqlmodel import Field, SQLModel
 
 
 class IconBase(SQLModel):
-    name: str
-    path: str
+	name: str
+	path: str
 
 
 class Icons(IconBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
+	id: Optional[int] = Field(default=None, primary_key=True)
 
 
 class IconCreate(IconBase):
-    pass
+	pass
 
 
 class IconRead(IconBase):
-    id: int
+	id: int
 
 
 class IconUpdate(SQLModel):
-    name: Optional[str] = None
-    path: Optional[str] = None
+	name: Optional[str] = None
+	path: Optional[str] = None

@@ -7,11 +7,11 @@ from routers import buttons, sounds, icons, misc, websocket
 app = FastAPI()
 
 app.add_middleware(
-    CORSMiddleware,
-    allow_origins=['*'],
-    allow_credentials=False,
-    allow_methods=["*"],
-    allow_headers=["*"],
+	CORSMiddleware,
+	allow_origins=['*'],
+	allow_credentials=False,
+	allow_methods=["*"],
+	allow_headers=["*"],
 )
 app.include_router(buttons.router)
 app.include_router(sounds.router)

@@ -9,6 +9,6 @@
 - Misc
 	- [x] Setup repo
 	- [ ] Setup CI/CD pipeline
-		- [ ] Build front
 		- [ ] Build back
 		- [ ] Test back
+		- [ ] Build front
