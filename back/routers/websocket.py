@@ -1,6 +1,5 @@
 import json
 from fastapi import APIRouter, WebSocket
-#from pydantic import BaseModel, Field
 
 
 router = APIRouter()

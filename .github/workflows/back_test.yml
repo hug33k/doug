@@ -34,6 +34,10 @@ jobs:
                     python -m pip install --upgrade pip
                     pip install -r requirements.txt
             -
+                name: Injecting database dump
+                run: |
+                    python inject_db_dump.py
+            -
                 name: Test (pytest)
                 run: |
                     export PYTHONPATH=$(pwd)
