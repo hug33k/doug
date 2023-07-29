@@ -4,7 +4,7 @@ from sqlmodel import Field, SQLModel
 
 class IconBase(SQLModel):
 	name: str
-	path: str
+	path: Optional[str] = None
 
 
 class Icons(IconBase, table=True):

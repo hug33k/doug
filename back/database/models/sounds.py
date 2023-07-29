@@ -4,7 +4,7 @@ from sqlmodel import Field, SQLModel
 
 class SoundBase(SQLModel):
 	name: str
-	path: str
+	path: Optional[str] = None
 
 
 class Sounds(SoundBase, table=True):

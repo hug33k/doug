@@ -71,7 +71,7 @@ async def upload_icon(file: UploadFile, icon_id: int, session: Session = Depends
 	# Changer le nom du fichier par un UUID pour éviter les conflits
 	# Et check que l'UUID ne soit pas déjà utilisé
 	async with aiofiles.open(
-		f"/home/pi/Projects/Doug/API/public/icons/{icon_id}.{filetype}",
+		f"/home/pi/Projects/Doug/back/public/icons/{icon_id}.{filetype}",
 		"wb") as file_disk:
 		content = await file.read()
 		await file_disk.write(content)

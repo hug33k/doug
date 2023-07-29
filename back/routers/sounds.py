@@ -69,11 +69,11 @@ async def upload_sound(file: UploadFile, sound_id: int, session: Session = Depen
 	# Changer le nom du fichier par un UUID pour éviter les conflits
 	# Et check que l'UUID ne soit pas déjà utilisé
 	async with aiofiles.open(
-		f"/home/pi/Projects/Doug/API/public/sounds/{sound_id}.{filetype}",
+		f"/home/pi/Projects/Doug/back/public/sounds/{sound_id}.{filetype}",
 		"wb") as file_disk:
 		content = await file.read()
 		await file_disk.write(content)
-	setattr(sound, "path", "/public/sounds/{sound_id}.{filetype}")
+	setattr(sound, "path", f"/public/sounds/{sound_id}.{filetype}")
 	session.add(sound)
 	session.commit()
 	session.refresh(sound)
