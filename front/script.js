@@ -140,15 +140,16 @@ const buttons_show_buttons = (buttons) => {
         const buttonNode = generate_button_data_node(button, showData, button_delete, button_generate_form, button_triger);
         container.appendChild(buttonNode);
     });
+	const buttonAddNode = generate_button_add_node(button_generate_form);
+	container.appendChild(buttonAddNode);
 };
 
-const button_generate_form = (id) => {
-	return API_button_get(id, (data) => {
-		modal_set_title(`Modifier Bouton ${id}`);
+const button_generate_form = (id=null) => {
+	const bindForm = (data=null) => {
 		const form = `<form action="">
 			<div class="form_field">
 				<label for="name">Nom</label>
-				<input id="name" name="name" type="text" placeholder="Nom" value="${data.name}"/>
+				<input id="name" name="name" type="text" placeholder="Nom" ${data ? `value="${data.name}"` : ""}/>
 			</div>
 			<div class="form_field">
 				<label for="soundId">Son</label>
@@ -186,7 +187,7 @@ const button_generate_form = (id) => {
 			const selectNode = formNode.querySelector("select#soundId");
 			selectNode.innerHTML = "";
 			sounds.forEach((sound) => {
-				selectNode.innerHTML += `<option value="${sound.id}" ${data.soundId === sound.id ? "selected" : ""}>${sound.name}</option>`;
+				selectNode.innerHTML += `<option value="${sound.id}" ${data && data.soundId === sound.id ? "selected" : ""}>${sound.name}</option>`;
 			});
 		});
 		
@@ -194,9 +195,18 @@ const button_generate_form = (id) => {
 			const selectNode = formNode.querySelector("select#iconId");
 			selectNode.innerHTML = "";
 			icons.forEach((icon) => {
-				selectNode.innerHTML += `<option value="${icon.id}" ${data.iconId === icon.id ? "selected" : ""}>${icon.name}</option>`;
+				selectNode.innerHTML += `<option value="${icon.id}" ${data && data.iconId === icon.id ? "selected" : ""}>${icon.name}</option>`;
 			});
 		});
+	};
+
+	if (id === null) {
+		modal_set_title("Ajouter Bouton");
+		return bindForm();
+	}
+	return API_button_get(id, (data) => {
+		modal_set_title(`Modifier Bouton ${id}`);
+		return bindForm(data);
 	});
 };
 
@@ -214,18 +224,19 @@ const sounds_show_sounds = (sounds) => {
     while (container.firstChild)
         container.removeChild(container.firstChild);
     sounds.forEach((sound) => {
-        const soundNode = generate_button_data_node(sound, showData, sound_delete, sound_generate_form, sound_triger, sound_generate_image_upload);
+        const soundNode = generate_button_data_node(sound, showData, sound_delete, sound_generate_form, sound_triger, sound_generate_image_upload, "sound");
         container.appendChild(soundNode);
     });
+	const soundAddNode = generate_button_add_node(sound_generate_form);
+	container.appendChild(soundAddNode);
 };
 
-const sound_generate_form = (id) => {
-	return API_sound_get(id, (data) => {
-		modal_set_title(`Modifier Son ${id}`);
+const sound_generate_form = (id=null) => {
+	const bindForm = (data=null) => {
 		const form = `<form action="">
 			<div class="form_field">
 				<label for="name">Nom</label>
-				<input id="name" name="name" type="text" placeholder="Nom" value="${data.name}"/>
+				<input id="name" name="name" type="text" placeholder="Nom" ${data ? `value="${data.name}"` : ""}/>
 			</div>
 			<div class="form_actions">
 				<button type="button" class="form_action_cancel" onclick="((e) => {
@@ -249,6 +260,15 @@ const sound_generate_form = (id) => {
 				sounds_get();
 			});
 		});
+	};
+
+	if (id === null) {
+		modal_set_title("Ajouter Son");
+		return bindForm();
+	}
+	return API_sound_get(id, (data) => {
+		modal_set_title(`Modifier Son ${id}`);
+		return bindForm(data);
 	});
 };
 
@@ -298,18 +318,19 @@ const icons_show_icons = (icons) => {
     while (container.firstChild)
         container.removeChild(container.firstChild);
     icons.forEach((icon) => {
-        const iconNode = generate_button_data_node(icon, showData, icon_delete, icon_generate_form, null, icon_generate_image_upload);
+        const iconNode = generate_button_data_node(icon, showData, icon_delete, icon_generate_form, null, icon_generate_image_upload, "image");
         container.appendChild(iconNode);
     });
+	const iconAddNode = generate_button_add_node(icon_generate_form);
+	container.appendChild(iconAddNode);
 };
 
-const icon_generate_form = (id) => {
-	return API_icon_get(id, (data) => {
-		modal_set_title(`Modifier Icone ${id}`);
+const icon_generate_form = (id=null) => {
+	const bindForm = (data=null) => {
 		const form = `<form action="">
 			<div class="form_field">
 				<label for="name">Nom</label>
-				<input id="name" name="name" type="text" placeholder="Nom" value="${data.name}"/>
+				<input id="name" name="name" type="text" placeholder="Nom" ${data ? `value="${data.name}"` : ""}/>
 			</div>
 			<div class="form_actions">
 				<button type="button" class="form_action_cancel" onclick="((e) => {
@@ -333,6 +354,15 @@ const icon_generate_form = (id) => {
 				icons_get();
 			});
 		});
+	};
+
+	if (id === null) {
+		modal_set_title("Ajouter Icone");
+		return bindForm();
+	}
+	return API_button_get(id, (data) => {
+		modal_set_title(`Modifier Icone ${id}`);
+		return bindForm(data);
 	});
 };
 
@@ -415,7 +445,24 @@ const icon_delete = (id) => {
     MISC
 */
 
-const generate_button_data_node = (item, showData, deleteTrigger, formTrigger, testTrigger=null, editImageTrigger=null) => {
+const generate_button_add_node = (formTrigger) => {
+    const buttonNode = document.createElement("li");
+    buttonNode.id = `buttons_button_new`;
+    buttonNode.classList.add("buttondata");
+    buttonNode.innerHTML = `
+        <article>
+            <div class="buttondata_actions">
+                <button type="button" class="buttondata_action_edit" onclick="((e) => {
+					e.preventDefault();
+					${formTrigger.name}();
+					modal_toggle();
+				})(event)">Ajouter</button>
+            </div>
+        </article>`;
+    return buttonNode;
+};
+
+const generate_button_data_node = (item, showData, deleteTrigger, formTrigger, testTrigger=null, editFileTrigger=null, fileTypeName=null) => {
     const buttonNode = document.createElement("li");
     buttonNode.id = `buttons_button_${item.id}`;
     buttonNode.classList.add("buttondata");
@@ -425,18 +472,28 @@ const generate_button_data_node = (item, showData, deleteTrigger, formTrigger, t
                 ${Object.keys(showData).map((key) => {
 					var out = "";
 					out += `<div>${key} : ${item[showData[key]]}</div>`;
-					if (key === "Path")
-						out += `<img src="http://localhost:8000${item[showData[key]]}"/>`;
+					if (key === "Path") {
+						switch (fileTypeName) {
+							case "image":
+								out += `<img src="http://localhost:8000${item[showData[key]]}"/>`;
+								break;
+							case "sound":
+								out += `<audio controls src="http://localhost:8000${item[showData[key]]}"></audio>`;
+								break;
+							default:
+								break;
+						}
+					}
 					return out;
 				}).join("\n")}
             </div>
             <div class="buttondata_actions">
                 ${testTrigger ? `<button type="button" class="buttondata_action_test" onclick="${testTrigger.name}(event, ${item.id})">Tester</button>` : ""}
-                ${editImageTrigger ? `<button type="button" class="buttondata_action_image" onclick="((e) => {
+                ${editFileTrigger ? `<button type="button" class="buttondata_action_image" onclick="((e) => {
 					e.preventDefault();
-					${editImageTrigger.name}(${item.id});
+					${editFileTrigger.name}(${item.id});
 					modal_toggle();
-				})(event)">Modifier l'image</button>` : ""}
+				})(event)">Modifier ${fileTypeName}</button>` : ""}
                 <button type="button" class="buttondata_action_edit" onclick="((e) => {
 					e.preventDefault();
 					${formTrigger.name}(${item.id});

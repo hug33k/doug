@@ -107,11 +107,16 @@ section.section_item {
 
 .buttondata {
     width: 200px;
-    height: 100px;
+    min-height: 100px;
 }
 
 .button:hover {
     background: #999;
+}
+
+.buttondata audio,
+.buttondata img {
+	max-width: 100%;
 }
 
 .modal {

@@ -36,7 +36,7 @@ const _API_request_get = (resourceType, id, callback=null) => {
 };
 
 const _API_request_post = (resourceType, id, body, callback=null) => {
-    return _API_request(`/${resourceType}/${id}`, "POST", body)
+    return _API_request(`/${resourceType}${id === null ? '' : `/${id}`}`, "POST", body)
 		.then((data) => callback ? callback(data) : data);
 };
 
