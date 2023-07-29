@@ -13,7 +13,7 @@ def assert_icon_read_class(icon):
 	assert isinstance(icon, dict)
 	check_key_in_dict(icon, "id", int)
 	check_key_in_dict(icon, "name", str)
-	check_key_in_dict(icon, "path", str)
+	check_key_in_dict(icon, "path", str, True)
 
 
 def test__get_icons__success():
@@ -50,6 +50,10 @@ def test__add_icon__success():
 		"name": "Button test",
 		"path": "/path"
 	}
+	payload__no_path = {
+		"name": "Icon",
+		"path": None
+	}
 	payload__non_required_fields = {
 		"name": "Button test non required fields",
 		"path": "/path",
@@ -58,6 +62,7 @@ def test__add_icon__success():
 
 	payloads = [
 		payload_default,
+		payload__no_path,
 		payload__non_required_fields
 	]
 
@@ -76,21 +81,14 @@ def test__add_icon__invalid_format():
 		"name": None,
 		"path": "/path"
 	}
-	payload__invalid_path = {
-		"name": "Icon",
-		"path": None
-	}
 	payload__no_body = {}
 
 	payloads = [
 		payload__invalid_name,
-		payload__invalid_path,
 		payload__no_body
 	]
 	errors = [
 		"""body -> name
-  none is not an allowed value (type=type_error.none.not_allowed)""",
-		"""body -> path
   none is not an allowed value (type=type_error.none.not_allowed)""",
 		"""body -> name
   field required (type=value_error.missing)"""

@@ -13,7 +13,7 @@ def assert_sound_read_class(sound):
 	assert isinstance(sound, dict)
 	check_key_in_dict(sound, "id", int)
 	check_key_in_dict(sound, "name", str)
-	check_key_in_dict(sound, "path", str)
+	check_key_in_dict(sound, "path", str, True)
 
 
 def test__get_sounds__success():
@@ -50,6 +50,10 @@ def test__add_sound__success():
 		"name": "Button test",
 		"path": "/path"
 	}
+	payload__no_path = {
+		"name": "Sound",
+		"path": None
+	}
 	payload__non_required_fields = {
 		"name": "Button test non required fields",
 		"path": "/path",
@@ -58,6 +62,7 @@ def test__add_sound__success():
 
 	payloads = [
 		payload_default,
+		payload__no_path,
 		payload__non_required_fields
 	]
 
@@ -76,21 +81,14 @@ def test__add_sound__invalid_format():
 		"name": None,
 		"path": "/path"
 	}
-	payload__invalid_path = {
-		"name": "Sound",
-		"path": None
-	}
 	payload__no_body = {}
 
 	payloads = [
 		payload__invalid_name,
-		payload__invalid_path,
 		payload__no_body
 	]
 	errors = [
 		"""body -> name
-  none is not an allowed value (type=type_error.none.not_allowed)""",
-		"""body -> path
   none is not an allowed value (type=type_error.none.not_allowed)""",
 		"""body -> name
   field required (type=value_error.missing)"""
