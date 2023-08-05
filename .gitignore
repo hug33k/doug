@@ -2,6 +2,9 @@
 back/database/*.sqlite
 back/public/icons/*
 back/public/sounds/*
+hardware/*.o
+hardware/*.obj
+hardware/*.hex
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
