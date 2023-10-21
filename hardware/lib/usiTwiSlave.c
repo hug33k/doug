@@ -549,8 +549,8 @@ Only disabled when waiting for a new Start Condition.
 
 ISR( USI_OVERFLOW_VECTOR )
 {
-	blink(1);
-	wait(100);
+//	blink3(1);
+//	wait(50);
   switch ( overflowState )
   {
 
@@ -559,7 +559,7 @@ ISR( USI_OVERFLOW_VECTOR )
     case USI_SLAVE_CHECK_ADDRESS:
       if ( ( USIDR == 0 ) ||  (( USIDR >> 1 ) == slaveAddress )) // NEVER GO THROUGH WTF
       {
-		blink2(1);
+//		blinkWait(1);
           if ( USIDR & 0x01 )
         {
           overflowState = USI_SLAVE_SEND_DATA;
@@ -572,6 +572,7 @@ ISR( USI_OVERFLOW_VECTOR )
       }
       else
       {
+//	blink2(1);
         SET_USI_TO_TWI_START_CONDITION_MODE( );
       }
       break;

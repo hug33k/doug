@@ -51,12 +51,12 @@ Change Activity:
 
 typedef	unsigned char	byte ;
 
-#define I2C_SLAVE_ADDR  0x10
+#define I2C_SLAVE_ADDR  0x24
 #define OUTPUT	1
 #define INPUT	0
 #define HIGH	1
 #define LOW	0
-#define DELAY_1 200
+#define DELAY_1 250
 #define DELAY_2 100
 
 

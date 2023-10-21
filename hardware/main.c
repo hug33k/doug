@@ -10,6 +10,14 @@ void wait(int delay_ms) {
 	}
 }
 
+void blinkWait(byte count) {
+        for (byte i=0; i < count; i++) {
+                digitalWrite(PB4, HIGH);
+//                wait(250);
+                digitalWrite(PB4, LOW);
+        }
+}
+
 void blink(byte count) {
 	for (byte i=0; i < count; i++) {
 		digitalWrite(PB4, HIGH);
@@ -48,7 +56,7 @@ int main(void) {
 	blink(2);
 	wait(DELAY_1);
 	usiTwiSlaveEnable();
-	blink2(1);
+	blink3(3);
 	while (1) {
 		byte byteRcvd = 0;
 		if (usiTwiDataInReceiveBuffer()) {
@@ -61,5 +69,6 @@ int main(void) {
 			usiTwiTransmitByte(byteRcvd);
 			blink(1);
 		}
+
 	}
 }

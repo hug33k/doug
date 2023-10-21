@@ -5,7 +5,7 @@ import time
 I2C_ADDRESS = 0x10  # Replace with the correct I2C address
 
 # Define the commands to send to the ATTiny25
-COMMAND_TURN_ON = 0x10
+COMMAND_TURN_ON = 0x05
 COMMAND_TURN_OFF = 0x00
 
 # I2C bus number on Raspberry Pi (usually 1 for Raspberry Pi 2+)
