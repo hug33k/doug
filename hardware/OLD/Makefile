@@ -3,12 +3,12 @@ AVRDUDEMCU=t25
 CC=/usr/bin/avr-gcc
 OBJ2HEX=/usr/bin/avr-objcopy
 AVRDUDE=/usr/local/bin/avrdude
-TARGET=main
+TARGET=chatgpt
 LIBDIR=./lib
-SRC=$(TARGET).c $(LIBDIR)/usiTwiSlave.c
-#SRC=$(TARGET).c
-INC=-I/usr/lib/avr/include/ -I./ -I./lib/
-#INC=-I/usr/lib/avr/include/ -I./
+#SRC=$(TARGET).c $(LIBDIR)/usi_i2c_slave.c
+SRC=$(TARGET).c
+#INC=-I/usr/lib/avr/include/ -I./ -I./lib/
+INC=-I/usr/lib/avr/include/ -I./
 CFLAGS=-std=c99 -g -Os -Wall -mcall-prologues -mmcu=$(MCU) $(INC) 
 LDFLAGS=-Wl,-gc-sections -Wl,-relax 
 AVRDUDECONF=/home/pi/avrdude.conf

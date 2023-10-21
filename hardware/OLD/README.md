@@ -38,7 +38,12 @@ $> make install
 
 ## TODO
 
-- [ ] Script to flash ATTiny25
+- [x] Script to flash ATTiny25
 - [ ] Generate random ID for each ATTiny25 (if they don't already have one / update system to avoid clear ID?)
 - [ ] Implement switch support (Trigger LED when switch pressed, for test)
-- [ ] Connect to RPi via I2C (I2C address based on ID)
+- [ ] Connect to RPi via I2C (I2C address based on ID) !!!!!!
+
+
+## Libs
+
+- [AtTiny-I2c-master-slave-USI](https://github.com/JDat/AtTiny-I2C-master-slave-USI/tree/master)
