@@ -2,7 +2,7 @@ import smbus
 import time
 
 # I2C address of the ATTiny25
-I2C_ADDRESS = 0x10  # Replace with the correct I2C address
+I2C_ADDRESS = 0x24  # Replace with the correct I2C address
 
 # Define the commands to send to the ATTiny25
 COMMAND_TURN_ON = 0x05

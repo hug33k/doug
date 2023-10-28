@@ -593,6 +593,7 @@ ISR( USI_OVERFLOW_VECTOR )
     // next USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA
     case USI_SLAVE_SEND_DATA:
       // Get data from Buffer
+	blink(1);
       if ( txHead != txTail )
       {
         txTail = ( txTail + 1 ) & TWI_TX_BUFFER_MASK;
@@ -605,6 +606,7 @@ ISR( USI_OVERFLOW_VECTOR )
         return;
       } // end if
       overflowState = USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA;
+	blink(2);
       SET_USI_TO_SEND_DATA( );
       break;
 
