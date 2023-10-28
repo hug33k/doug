@@ -6,6 +6,11 @@
 
 volatile uint8_t data = 0x00;
 
+#define LED_PIN		PB4
+#define BTN_PIN		PB1
+#define DELAY_1		100
+#define DELAY_2		200
+
 void wait(int delay_ms) {
 	for(volatile int i=0; i < delay_ms; i++) {
 		for (volatile int j=0; j<50; j++) {}
@@ -14,22 +19,22 @@ void wait(int delay_ms) {
 
 void blink(byte count) {
 	for (byte i=0; i < count; i++) {
-		digitalWrite(PB4, HIGH);
+		digitalWrite(LED_PIN, HIGH);
 		wait(DELAY_1);
-		digitalWrite(PB4, LOW);
+		digitalWrite(LED_PIN, LOW);
 		wait(DELAY_2);
 	}
 }
 
 ISR(PCINT0_vect) {
-	if (PINB & _BV(PB1)) {
+	if (PINB & _BV(BTN_PIN)) {
 		data = 0x05;
 	}
 }
 
 int main(void) {
-	pinMode(PB4, OUTPUT);
-	pinMode(PB1, INPUT);
+	pinMode(LED_PIN, OUTPUT);
+	pinMode(BTN_PIN, INPUT);
 	blink(2);
 	wait(DELAY_1);
 	usiTwiSlaveInit(I2C_SLAVE_ADDR);
@@ -55,21 +60,4 @@ int main(void) {
 		}
 	}
 //		sleep_mode();
-/*
-
-	while (1) {
-		byte byteRcvd = 0;
-		if (usiTwiDataInReceiveBuffer()) {
-			blink(2);
-			wait(DELAY_1);
-			byteRcvd = usiTwiReceiveByte();
-			blink(byteRcvd);
-			byteRcvd += 10;
-			wait(DELAY_1);
-			usiTwiTransmitByte(byteRcvd);
-			blink(1);
-		}
-
-	}
-*/
 }
